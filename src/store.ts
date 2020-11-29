@@ -3,20 +3,32 @@ import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { connectRouter } from 'connected-react-router';
 import { combineReducers } from 'redux';
 import { createHashHistory } from 'history';
-import { StateType } from 'typesafe-actions';
-import { counter } from './reducers';
+import { common, counter } from './reducers';
+import createSagaMiddleware from 'redux-saga';
+import rootSaga from './sagas';
 
 export const history = createHashHistory();
-const middleware = [...getDefaultMiddleware(), routerMiddleware(history)];
 
 const reducer = combineReducers({
   router: connectRouter(history),
   counter,
+  common,
 });
 
-const createStore = (preloadedState?: StateType<typeof reducer>) =>
-  configureStore({ reducer, middleware, preloadedState });
+export type State = ReturnType<typeof reducer>;
 
-export type State = StateType<ReturnType<typeof combineReducers>>;
+const sagaMiddleware = createSagaMiddleware();
+const middleware = [...getDefaultMiddleware(), routerMiddleware(history), sagaMiddleware];
+
+const createStore = (preloadedState?: State) =>
+  configureStore({
+    reducer,
+    middleware,
+    preloadedState,
+  });
+
 export type Store = ReturnType<typeof createStore>;
+
 export default createStore();
+
+sagaMiddleware.run(rootSaga);

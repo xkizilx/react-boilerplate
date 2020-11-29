@@ -1,6 +1,6 @@
 import { Redirect, Route, Switch } from 'react-router-dom';
 import React from 'react';
-import CounterPage from './containers/pages/CounterPage';
+import CounterPage from '../pages/CounterPage';
 
 export const Routes = (): JSX.Element => (
   <Switch>

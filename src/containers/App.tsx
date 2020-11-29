@@ -1,10 +1,18 @@
 import React, { ReactNode } from 'react';
 import './App.scss';
+import { State } from '../store';
+import { connect, ConnectedProps } from 'react-redux';
 
-type Props = {
+const mapState = ({ common }: State) => ({
+  common,
+});
+
+const connector = connect(mapState);
+
+type Props = ConnectedProps<typeof connector> & {
   children: ReactNode;
 };
 
-const App = ({ children }: Props): JSX.Element => <>{children}</>;
+const App = ({ common, children }: Props): JSX.Element => (common.loading > 0 ? <h1>Loading...</h1> : <>{children}</>);
 
-export default App;
+export default connector(App);
