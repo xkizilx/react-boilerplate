@@ -1,13 +1,12 @@
-import { add, addAsync } from '../actions/counter';
+import { counterAdd, counterAddAsync } from '../actions/counter';
 import { delay, put, takeEvery } from 'redux-saga/effects';
-import { PayloadAction } from '@reduxjs/toolkit';
 import { loading } from '../actions/common';
 
-function* doAddAsync(n: PayloadAction<number>) {
+function* addAsyncSaga(a: ReturnType<typeof counterAddAsync>) {
   yield put(loading(true));
   yield delay(1000);
   yield put(loading(false));
-  yield put(add(n.payload));
+  yield put(counterAdd(a.payload));
 }
 
-export default [takeEvery(addAsync, doAddAsync)];
+export default [takeEvery(counterAddAsync, addAsyncSaga)];

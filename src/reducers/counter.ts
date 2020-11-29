@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store';
-import { add } from '../actions/counter';
+import { counterAdd } from '../actions/counter';
 
 export type CounterState = {
   value: number;
@@ -15,7 +15,7 @@ const slice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(add, (s, a) => {
+    builder.addCase(counterAdd, (s, a) => {
       s.value += a.payload;
     });
   },
