@@ -1,11 +1,12 @@
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import React from 'react';
+import Counter from './components/counter';
 
 export const Routes = (): JSX.Element => (
   <Switch>
-    <Route exact path="/" component={() => <h1>root</h1>} />
-    <Route path="/app" component={() => <h1>app</h1>} />
-    <Route path="/test" component={() => <h1>test</h1>} />
-    <Route component={() => <h1>404</h1>} />
+    <Redirect exact path="/" to="/home" />
+    <Route path="/home" render={() => <h1>home</h1>} />
+    <Route path="/counter" component={Counter} />
+    <Route render={() => <h1>404</h1>} />
   </Switch>
 );

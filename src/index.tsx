@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import store, { history } from './store/store';
-import Root from './Root';
+import store, { history } from './store';
+import Root from './containers/Root';
 
 ReactDOM.render(
   <React.StrictMode>
